@@ -71,7 +71,7 @@
         try {
             const userInput = document.getElementById('user-input').value;
             const encodedUserInput = encodeURIComponent(userInput);
-            const url = `http://localhost:8081/bot/chat?prompt=${encodedUserInput}`;
+            const url = `http://localhost:8080/bot/chat?prompt=${encodedUserInput}`;
 
             const response = await fetch(url);
 

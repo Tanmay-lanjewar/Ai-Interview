@@ -1,14 +1,18 @@
 package com.bot.config;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class BotConfig {
-    Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-    private final String apiKey = dotenv.get("OPENAI_API_KEY");
+
+    @Value("${openai.api.key}")
+    private String apiKey;
+
+    @Value("${openai.api.url}")
+    private String apiUrl;
 
     @Bean
     public RestTemplate getTemplate() {
@@ -16,6 +20,8 @@ public class BotConfig {
 
         template.getInterceptors().add(((request, body, execution) -> {
             request.getHeaders().add("Authorization", "Bearer " + apiKey);
+            request.getHeaders().add("HTTP-Referer", "http://localhost:8080"); // Required by OpenRouter
+            request.getHeaders().add("Content-Type", "application/json");
             return execution.execute(request, body);
         }));
 

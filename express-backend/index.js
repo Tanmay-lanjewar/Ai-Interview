@@ -3,7 +3,7 @@ const cors = require("cors");
 const { QuestionRouter } = require("./Routes/question.routes");
 const { connection } = require("./db");
 require("dotenv").config();
-const PORT = process.env.PORT;
+const PORT = 8081;
 
 const app = express();
 app.use(express.json());
@@ -15,11 +15,11 @@ app.get("/", async(req, res) =>{
     res.send("<h1>Welcome to the Interview Question Server Api</h1>")
 })
 
-app.listen(PORT, async() =>{
+app.listen(8081, async() =>{
     try {
         await connection;
         console.log("Connected to the database");
-        console.log("Server is Running on port 8080");
+        console.log("Server is Running on port 8081");
     } catch (error) {
         console.log(error);
     }

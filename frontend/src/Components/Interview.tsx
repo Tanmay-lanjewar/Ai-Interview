@@ -64,9 +64,9 @@ export const Interview = () => {
   useEffect(() => {
     setRender(true);
     axios
-      .get(`http://localhost:8080/questions/get?techStack=${techStack}`)
+      .get(`http://localhost:8081/questions/get?techStack=${techStack}`)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setQuestions(res.data);
       })
       .catch((error) => {
@@ -81,7 +81,7 @@ export const Interview = () => {
 
     let prompt = `Consider your self as a interviewer for full stack web developer. This is question :- ${questions[currentIndex].question} and this is my answer of this question :- ${transcript} give me feedback on this answer. The feedback should be evaluated using the following rubrics Feedback for Subject Matter Expertise and Communication skills should contain ratings on my interview responses from 0 - 10. Don't mention any where that you are an AI model just give feedback`;
     axios
-      .get(`http://localhost:8081/bot/chat?prompt= ${prompt}`)
+      .get(`http://localhost:8080/bot/chat?prompt= ${prompt}`)
       .then((res) => {
         setFeedBack(res.data);
         setIsLoading(false);
